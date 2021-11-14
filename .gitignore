@@ -152,3 +152,6 @@ dist
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode
+
+# Data para rellanr la base de datos
+data
