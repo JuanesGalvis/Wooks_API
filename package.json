@@ -4,7 +4,7 @@
   "description": "API conectada a base de datos en MongoDB para aplicación de gestión de libros (PWA construida en React)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

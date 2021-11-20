@@ -55,6 +55,12 @@ class MongoDB {
         })
     }
 
+    delete(id) {
+        return this.connect().then((db) => {
+            return db.deleteOne({"_id": ObjectId(id)});
+        })
+    }
+
     updateStatus(id, payload) {
         
         return this.connect().then((db) => {
@@ -65,6 +71,9 @@ class MongoDB {
             } else if (payload.NewState === "Leyendo") {
                 return db.updateOne({"_id": ObjectId(id)}, 
                     {"$set": {"state": payload.NewState, "actual": 1, "progress": 0}});
+            } else {
+                return db.updateOne({"_id": ObjectId(id)}, 
+                    {"$set": {"state": payload.NewState}});
             }
         })
     }
@@ -88,9 +97,20 @@ class MongoDB {
         }
     }
 
-    delete(id) {
+    updateBook(id, changes) {
+
+        let BookChanges = {}
+
+        changes.title ? BookChanges.title = changes.title : "";
+        changes.portada ? BookChanges.portada = changes.portada : "";
+        changes.paginas ? BookChanges.paginas = changes.paginas : "";
+        changes.autores ? BookChanges.autores = changes.autores : "";
+        changes.categories ? BookChanges.categories = changes.categories : "";
+
         return this.connect().then((db) => {
-            return db.deleteOne({"_id": ObjectId(id)});
+            return db.updateOne({"_id": ObjectId(id)}, {
+                "$set": {...BookChanges}
+            })
         })
     }
 };
