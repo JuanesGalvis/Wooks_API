@@ -1,6 +1,20 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
+
+const whiteList = ['http://localhost:8080'];
+const options = {
+    origin: (origin, callback) => {
+        if (whiteList.includes(origin) || true) {
+                   // Err, permitido?
+            callback(null, true);
+        } else {
+            callback(new Error("No permitido"));
+        }
+    }
+}
+app.use(cors(options));
 
 const Router = require('./routes/router');
 
